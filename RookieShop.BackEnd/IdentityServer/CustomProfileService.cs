@@ -17,9 +17,9 @@ namespace RookieShop.BackEnd.IdentityServer
     public class CustomProfileService : IProfileService
     {
         private readonly ILogger<CustomProfileService> _logger;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<UserModel> _userManager;
 
-        public CustomProfileService(UserManager<User> userManager,
+        public CustomProfileService(UserManager<UserModel> userManager,
             ILogger<CustomProfileService> logger)
         {
             _logger = logger;

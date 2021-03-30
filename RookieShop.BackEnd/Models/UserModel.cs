@@ -2,13 +2,13 @@
 
 namespace RookieShop.BackEnd.Models
 {
-    public class User : IdentityUser
+    public class UserModel : IdentityUser
     {
-        public User() : base()
+        public UserModel() : base()
         {
         }
 
-        public User(string userName) : base(userName)
+        public UserModel(string userName) : base(userName)
         {
         }
 

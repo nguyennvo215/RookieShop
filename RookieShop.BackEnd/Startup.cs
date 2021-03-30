@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RookieShop.Backend.IdentityServer;
 using RookieShop.BackEnd.Data;
-using RookieShop.BackEnd.Data.Entities;
 using RookieShop.BackEnd.IdentityServer;
+using RookieShop.BackEnd.Models;
 
 namespace RookieShop.BackEnd
 {
@@ -32,7 +31,7 @@ namespace RookieShop.BackEnd
 
             services.AddSwaggerGen();
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RookieShopDbContext>();
 
@@ -47,7 +46,7 @@ namespace RookieShop.BackEnd
                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
                .AddInMemoryClients(IdentityServerConfig.Clients)
-               .AddAspNetIdentity<User>()
+               .AddAspNetIdentity<UserModel>()
                .AddProfileService<CustomProfileService>()
                .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
@@ -94,6 +93,7 @@ namespace RookieShop.BackEnd
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseIdentityServer();
             app.UseRouting();
 
             app.UseAuthorization();
