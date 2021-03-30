@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieShop.BackEnd", "RookieShop.BackEnd\RookieShop.BackEnd.csproj", "{E80A5601-D53C-4DB0-A8C1-1E3F9165BA90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RookieShop.FrontEnd", "RookieShop.FrontEnd\RookieShop.FrontEnd.csproj", "{C4F06D7E-EDAF-453E-A786-235C9D204A8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RookieShop.FrontEnd", "RookieShop.FrontEnd\RookieShop.FrontEnd.csproj", "{C4F06D7E-EDAF-453E-A786-235C9D204A8E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E80A5601-D53C-4DB0-A8C1-1E3F9165BA90} = {E80A5601-D53C-4DB0-A8C1-1E3F9165BA90}
 	EndProjectSection
