@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RookieShop.Backend.IdentityServer;
 using RookieShop.BackEnd.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RookieShop.BackEnd.Data.Entities;
+using RookieShop.BackEnd.IdentityServer;
 
 namespace RookieShop.BackEnd
 {
@@ -33,6 +32,40 @@ namespace RookieShop.BackEnd
 
             services.AddSwaggerGen();
 
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<RookieShopDbContext>();
+
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.EmitStaticAudienceClaim = true;
+            })
+               .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+               .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+               .AddInMemoryClients(IdentityServerConfig.Clients)
+               .AddAspNetIdentity<User>()
+               .AddProfileService<CustomProfileService>()
+               .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+
+            services.AddAuthentication()
+                .AddLocalApi("Bearer", option =>
+                {
+                    option.ExpectedScope = "rookieshop.api";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Bearer", policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +85,9 @@ namespace RookieShop.BackEnd
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
+                c.OAuthClientId("swagger");
+                c.OAuthClientSecret("secret");
+                c.OAuthUsePkce();
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
