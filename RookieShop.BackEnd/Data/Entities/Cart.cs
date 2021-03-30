@@ -10,7 +10,7 @@ namespace RookieShop.BackEnd.Data.Entities
             Products = new HashSet<Product>();
         }
         public int UserID { get; set; }
-        public decimal TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         public DateTime AddedDate { get; set; }
         public bool isCheckedOut { get; set; }
         public virtual ICollection<Product> Products { get; set; }

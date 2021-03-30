@@ -25,12 +25,14 @@ namespace RookieShop.BackEnd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<RookieShopDbContext>(option =>
+            option.UseSqlServer(Configuration.GetConnectionString("RookieShopConnection")));
+
             services.AddControllersWithViews();
 
             services.AddSwaggerGen();
 
-            services.AddDbContext<RookieShopDbContext>(option =>
-            option.UseSqlServer(Configuration.GetConnectionString("")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

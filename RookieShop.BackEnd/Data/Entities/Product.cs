@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RookieShop.BackEnd.Data.Entities
 {
@@ -10,8 +9,8 @@ namespace RookieShop.BackEnd.Data.Entities
         public string ProductName { get; set; }
         public string ProductShortDescription { get; set; }
         public string ProductFullDescription { get; set; }
-        public decimal ProductPrice { get; set; }
-        public decimal PromotionPrice { get; set; }
+        public double ProductPrice { get; set; }
+        public double PromotionPrice { get; set; }
         public string Image { get; set; }
         public bool isPublished { get; set; }
         public DateTime AddedDate { get; set; }
