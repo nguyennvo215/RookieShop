@@ -9,14 +9,11 @@ namespace RookieShop.BackEnd.Data.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(o => o.ID);
-
             builder.Property(o => o.ID).UseIdentityColumn();
-
             builder.Property(o => o.Username).IsRequired();
-
             builder.Property(o => o.Password).IsRequired();
-
             builder.Property(o => o.Email).IsRequired();
+            builder.Property(o => o.Address).IsRequired();
         }
     }
 }
